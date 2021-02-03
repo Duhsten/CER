@@ -11,7 +11,8 @@ namespace CER
         string[] classDs;
         public string jsonPath = "classes.json";
         private int i;
-       public int lastEntry;
+        public int lastEntry;
+        public List<int> classHours;
         /// <summary>
         /// checks the database for classes and outputs that Data
         /// </summary>
@@ -38,7 +39,7 @@ namespace CER
             List<Class> classList = new List<Class>();
             classList.Add(c1);
             classList.Add(c2);
- 
+
             string output = JsonConvert.SerializeObject(classList);
             Console.Write(output);
         }
@@ -51,7 +52,7 @@ namespace CER
 
             bool configFound = checkJson();
 
-            if(configFound)
+            if (configFound)
             {
                 Console.Clear();
                 Console.WriteLine("Classes Found:");
@@ -68,7 +69,7 @@ namespace CER
                 Console.WriteLine("1. Add Class");
                 Console.WriteLine("2. Remove Class");
                 string result = Console.ReadLine();
-                if(result == "1")
+                if (result == "1")
                 {
                     AddClass();
                 }
@@ -88,7 +89,7 @@ namespace CER
 
         private bool checkJson()
         {
-            if(!File.Exists(jsonPath))
+            if (!File.Exists(jsonPath))
             {
                 return false;
             }
@@ -154,7 +155,7 @@ namespace CER
             foreach (Class c in classList)
             {
 
-                if(c.className == result)
+                if (c.className == result)
                 {
                     Console.WriteLine("Found");
                     classList.Remove(classList[0]);
@@ -181,28 +182,28 @@ namespace CER
             string currentDayofTheWeek = DateTime.Now.ToString("dddd");
             int currentHour = Int32.Parse(currentHourString);
             int currentMinute = Int32.Parse(currentMinString);
-            
-            foreach (Class c in classList) 
+
+            foreach (Class c in classList)
             {
-              
+
                 string[] days = c.classDays;
                 foreach (string d in days)
-                {        
+                {
                     // If the results day is = too the current day
-                    if(d == currentDayofTheWeek)
+                    if (d == currentDayofTheWeek)
                     {
 
-                      selList.Add(c);
+                        selList.Add(c);
 
                     }
                 }
             }
 
 
-            
+
             return selList;
         }
-       public string GetNextClass()
+        public Class GetNextClass()
         {
             string ret = "";
             int lastEntry;
@@ -210,38 +211,19 @@ namespace CER
             List<Class> tC = GetTodaysClass();
             foreach (Class c in tC)
             {
+
                 int curTime = Int32.Parse(DateTime.Now.ToString("hh"));
                 string[] time = c.classTime.Split(":");
                 int hour = Int32.Parse(time[0]);
                 int min = Int32.Parse(time[1]);
                 Console.WriteLine(hour);
-
-                if (curTime > hour)
-                {
-                   // Past time for this class
-                }
-                else if (curTime < hour)
-                {
-                   entry = curTime - hour;
-                }
-                if(entry < lastEntry)
-                {
-                    // This is the true result
-                }
-            }
-
-            foreach (Class c in tC)
-            {
-              
-                string[] time = c.classTime.Split(":");
-                int hour = Int32.Parse(time[0]);
-                if (hour == lastEntry)
-                {
-                  
-                    ret = c.className;
-                }
+                classHours.Add(hour);
 
             }
+            // Where i left off
+            classHours.
+ 
+
             return ret;
         }
     }
