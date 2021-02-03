@@ -92,7 +92,7 @@ namespace CER
                 while (!Console.KeyAvailable)
                 {
                     // Run 
-                    string nextClass = cm.GetNextClass();
+                    Class nextClass = cm.GetNextClass();
                     List<Class> todaysClass = cm.GetTodaysClass();
                     Log.Output("**************************************", false);
                     Log.Output("***   CLASS ENVIROMENT RECORDER    ***", false);
@@ -106,7 +106,7 @@ namespace CER
                     Log.Output("********************************************", false);
                     Console.WriteLine();
                     Log.Output("********************************************", false);
-                    Log.Output("*** Next Class: "+ nextClass + "                ***", false);
+                    Log.Output("*** Next Class: "+ nextClass.className + " at " + nextClass.classTime + "                 ***", false);
                     Log.Output("********************************************", false);
                     Log.Output("********************************************", false);
                     Log.Output("*** Classes Today:                       ***", false);

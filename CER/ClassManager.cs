@@ -206,25 +206,53 @@ namespace CER
         public Class GetNextClass()
         {
             string ret = "";
-            int lastEntry;
-            int entry;
+            Class resultClass = null;
+            lastEntry = -1;
+            int entry = 0;
             List<Class> tC = GetTodaysClass();
             foreach (Class c in tC)
             {
-
-                int curTime = Int32.Parse(DateTime.Now.ToString("hh"));
+                
+                int curTime = Int32.Parse(DateTime.Now.ToString("HH"));
                 string[] time = c.classTime.Split(":");
                 int hour = Int32.Parse(time[0]);
                 int min = Int32.Parse(time[1]);
                 Console.WriteLine(hour);
-                classHours.Add(hour);
+                if (curTime > hour)
+                {
+                    Console.WriteLine("Test This class has passed");
+                    // Class Time has passed
+                   
+                }
+                else if (curTime < hour) // This class hasent happened yet
+                {
+                    Console.WriteLine("Test This class IS UP");
+                    entry = curTime - hour;
+                }
+                if (lastEntry == -1)
+                {
+                    //No last entry yet
+                    lastEntry = curTime - hour;
 
+                }
+                if (lastEntry == entry)
+                {
+                    Console.WriteLine("They are both the same");
+                    //same
+                }
+
+                else if (lastEntry > entry) // If current entry is closer than the last
+                {
+                    resultClass = c;
+                }
+                else if (lastEntry < entry)  // If current entry is further than the last
+                {
+                    lastEntry = entry;
+                }
+                // classHours.Add(hour);
+               
             }
-            // Where i left off
-            classHours.
- 
-
-            return ret;
+            return resultClass;
         }
     }
 }
