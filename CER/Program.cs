@@ -41,6 +41,7 @@ namespace CER
 
         public static void Start()
         {
+            ClassHandler cH = new ClassHandler();
             Logger Log = new Logger();
             Config conf = new Config();
             bool cr = conf.checkConfig();
@@ -91,8 +92,22 @@ namespace CER
                 Console.Clear();
                 while (!Console.KeyAvailable)
                 {
-                    // Run 
                     Class nextClass = cm.GetNextClass();
+                    string prompt = "";
+                    string prompt2 = "";
+                    //Some stupid shit
+                    if (nextClass.className == "No Class")
+                    {
+                        prompt = "No more classes left today";
+                       
+                    }
+                    else
+                    {
+                        prompt2 = "Next Class: " + nextClass.className + " at " + nextClass.classTime;
+                    }
+
+                    // Run 
+                    
                     List<Class> todaysClass = cm.GetTodaysClass();
                     Log.Output("**************************************", false);
                     Log.Output("***   CLASS ENVIROMENT RECORDER    ***", false);
@@ -100,16 +115,16 @@ namespace CER
                     Log.Output("*****       STATUS: RUNNING      *****", false);
                     Log.Output("**************************************", false);
                     Console.WriteLine();
-                    string time = DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt");
+                    string time = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt");
                     Log.Output("********************************************", false);
                     Log.Output("*** Current Time: " + time + " ***", false);
                     Log.Output("********************************************", false);
                     Console.WriteLine();
                     Log.Output("********************************************", false);
-                    Log.Output("*** Next Class: "+ nextClass.className + " at " + nextClass.classTime + "                 ***", false);
+                    Log.Output(prompt + prompt2 , false);
                     Log.Output("********************************************", false);
                     Log.Output("********************************************", false);
-                    Log.Output("*** Classes Today:                       ***", false);
+                    Log.Output( "Classes Today:                       ", false);
                     foreach (Class s in todaysClass)
                     {
                         Log.Output(s.className, false); 
@@ -120,6 +135,7 @@ namespace CER
                     Thread.Sleep(1000);
                     Console.Clear();
 
+                    cH.CurrentClass();
 
                 }
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);

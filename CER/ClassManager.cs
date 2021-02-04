@@ -205,6 +205,11 @@ namespace CER
         }
         public Class GetNextClass()
         {
+            Class empty = new Class
+            {
+                className = "No Class"
+
+            };
             string ret = "";
             Class resultClass = null;
             lastEntry = -1;
@@ -222,6 +227,7 @@ namespace CER
                 {
                     Console.WriteLine("Test This class has passed");
                     // Class Time has passed
+                    resultClass = empty;
                    
                 }
                 else if (curTime < hour) // This class hasent happened yet
@@ -229,8 +235,9 @@ namespace CER
                     Console.WriteLine("Test This class IS UP");
                     entry = curTime - hour;
                 }
-                if (lastEntry == -1)
+                else if (lastEntry == -1)
                 {
+                    resultClass = empty;
                     //No last entry yet
                     lastEntry = curTime - hour;
 
@@ -238,7 +245,7 @@ namespace CER
                 if (lastEntry == entry)
                 {
                     Console.WriteLine("They are both the same");
-                    //same
+                    resultClass = empty;
                 }
 
                 else if (lastEntry > entry) // If current entry is closer than the last
