@@ -215,66 +215,48 @@ namespace CER
             Class resultClass = null;
             lastEntry = -1;
             int entry = 0;
-            List<Class> tC = GetTodaysClass();
 
-            DateTime fileDate, closestDate; 
-            ArrayList theDates;
+
+            List<Class> tC = GetTodaysClass();
+            List<DateTime> theDates = new List<DateTime>();
+            foreach (Class today in tC)
+            {
+               
+                theDates.Add(DateTime.Parse(today.classTime));
+            }
+
+            DateTime closestDate = DateTime.Parse("00:00:00");
+
+            DateTime fileDate = DateTime.Parse(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt"));
+
             long min = long.MaxValue;
+        
+
 
             foreach (DateTime date in theDates)
                 if (Math.Abs(date.Ticks - fileDate.Ticks) < min)
                 {
+
                     min = Math.Abs(date.Ticks - fileDate.Ticks);
+                    if (date < fileDate)
+                    {
+                       // The time has passed
+                    }
+                    else
                     closestDate = date;
                 }
-
-
-
-            foreach (Class c in tC)
+            foreach(Class todaysClass in tC)
             {
-                
-                int curTime = Int32.Parse(DateTime.Now.ToString("HH"));
-                string[] time = c.classTime.Split(":");
-                int hour = Int32.Parse(time[0]);
-                int min = Int32.Parse(time[1]);
-                Console.WriteLine(hour);
-                if (curTime > hour)
+                if (closestDate == DateTime.Parse(todaysClass.classTime))
                 {
-                    Console.WriteLine("Test This class has passed");
-                    // Class Time has passed
-                    resultClass = empty;
-                   
+                    return todaysClass;
                 }
-                else if (curTime < hour) // This class hasent happened yet
-                {
-                    Console.WriteLine("Test This class IS UP");
-                    entry = curTime - hour;
-                }
-                else if (lastEntry == -1)
-                {
-                    resultClass = empty;
-                    //No last entry yet
-                    lastEntry = curTime - hour;
-
-                }
-                if (lastEntry == entry)
-                {
-                    Console.WriteLine("They are both the same");
-                    resultClass = empty;
-                }
-
-                else if (lastEntry > entry) // If current entry is closer than the last
-                {
-                    resultClass = c;
-                }
-                else if (lastEntry < entry)  // If current entry is further than the last
-                {
-                    lastEntry = entry;
-                }
-                // classHours.Add(hour);
-               
             }
-            return resultClass;
+
+
+
+         
+            return empty;
             
         }
     }

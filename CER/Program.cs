@@ -127,7 +127,11 @@ namespace CER
                     Log.Output( "Classes Today:                       ", false);
                     foreach (Class s in todaysClass)
                     {
-                        Log.Output(s.className, false); 
+                        DateTime classTime = DateTime.Parse(s.classTime);
+                        DateTime currTime = DateTime.Parse(DateTime.Now.ToString("HH:mm:ss"));
+                        string status = cH.GetStatus();
+
+                        Log.Output(s.className + " : " + classTime.ToString("h:mm tt") + " : " + status, false); 
                     }
                     Log.Output("********************************************", false);
                     Console.WriteLine();
