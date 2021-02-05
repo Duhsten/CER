@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace CER
@@ -215,6 +216,20 @@ namespace CER
             lastEntry = -1;
             int entry = 0;
             List<Class> tC = GetTodaysClass();
+
+            DateTime fileDate, closestDate; 
+            ArrayList theDates;
+            long min = long.MaxValue;
+
+            foreach (DateTime date in theDates)
+                if (Math.Abs(date.Ticks - fileDate.Ticks) < min)
+                {
+                    min = Math.Abs(date.Ticks - fileDate.Ticks);
+                    closestDate = date;
+                }
+
+
+
             foreach (Class c in tC)
             {
                 
@@ -260,6 +275,7 @@ namespace CER
                
             }
             return resultClass;
+            
         }
     }
 }
