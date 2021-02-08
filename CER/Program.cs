@@ -92,7 +92,10 @@ namespace CER
                 Console.Clear();
                 while (!Console.KeyAvailable)
                 {
+                    // THE RUN LOOP
+                    Class currentClass = cH.CurrentClass();
                     Class nextClass = cm.GetNextClass();
+                    cH.PreInitCheck();
                     string prompt = "";
                     string prompt2 = "";
                     //Some stupid shit
@@ -117,9 +120,9 @@ namespace CER
                     Console.WriteLine();
                     string time = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt");
                     Log.Output("********************************************", false);
-                    Log.Output("*** Current Time: " + time + " ***", false);
+                    Log.Output("Current Time: " + time + " ***", false);
                     Log.Output("********************************************", false);
-                    Console.WriteLine();
+                    Log.Output("Current Class: " + currentClass.className, false);
                     Log.Output("********************************************", false);
                     Log.Output(prompt + prompt2 , false);
                     Log.Output("********************************************", false);
@@ -134,6 +137,7 @@ namespace CER
                         Log.Output(s.className + " : " + classTime.ToString("h:mm tt") + " : " + status, false); 
                     }
                     Log.Output("********************************************", false);
+                    cH.PreInitCheck();
                     Console.WriteLine();
                     Console.WriteLine("Press ESC to stop");
                     Thread.Sleep(1000);
