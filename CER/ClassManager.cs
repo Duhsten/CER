@@ -211,10 +211,9 @@ namespace CER
                 className = "No Class"
 
             };
-            string ret = "";
-            Class resultClass = null;
+
             lastEntry = -1;
-            int entry = 0;
+    
 
 
             List<Class> tC = GetTodaysClass();

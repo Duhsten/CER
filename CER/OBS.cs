@@ -15,7 +15,8 @@ namespace CER
         /// </summary>
         public void Start()
         {
-            Process.Start(obsPath + obsExec);
+            Config conf = new Config();
+            Process.Start(conf.obsLocation());
         }
         /// <summary>
         /// Stops OBS on the local machine

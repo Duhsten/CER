@@ -9,7 +9,8 @@ namespace CER
     /// </summary>
     class ClassHandler
     {
-
+        public Zoom zoomApp = new Zoom();
+        public OBS obsApp = new OBS();
         public Class CurrentClass()
         {
             Class empty = new Class
@@ -17,6 +18,7 @@ namespace CER
                 className = "No Class"
 
             };
+            
             Logger logger = new Logger();
             ClassManager cM = new ClassManager();
             Class nextClass = cM.GetNextClass();
@@ -57,7 +59,7 @@ namespace CER
         /// <summary>
         /// Checks to see if the next class is 10 minutes before and then it preps for class.
         /// </summary>
-        public void PreInitCheck()
+        public Class PreInitCheck()
         {
        
                 Class empty = new Class
@@ -94,17 +96,24 @@ namespace CER
                     DateTime classEnd = DateTime.Parse(todayC.classEnd);
                     if (currT.Ticks >= classpreT.Ticks && currT.Ticks < clasTime.Ticks)
                     {
-                    logger.Output("Starting preperations for Class " + todayC.className, true);
+                    obsApp.Start();
+                    zoomApp.Start();
+                    return todayC;
                     }
-
+                    
 
                 }
-              
+            return empty;
 
             
         }
         public string GetStatus()
         {
+            Class empty = new Class
+            {
+                className = "No Class"
+
+            };
             Logger logger = new Logger();
             ClassManager cM = new ClassManager();
             Class nextClass = cM.GetNextClass();
@@ -121,7 +130,7 @@ namespace CER
                 string[] clTime = classTime.Split(":");
                 int classHour = Int32.Parse(clTime[0]);
                 int classMin = Int32.Parse(clTime[1]);
-              //  logger.Output(todayC.classTime, true);
+
                 if (classMin == 0)
                 {
                     classMin = 60;
@@ -131,27 +140,28 @@ namespace CER
                 DateTime classpreT = DateTime.Parse(classHour + ":" + classMin);
                 DateTime currT = DateTime.Parse(DateTime.Now.ToString("M/d/yyyy HH:mm:ss"));
                 DateTime clasTime = DateTime.Parse(todayC.classTime);
-                // Debug Log
-                //  logger.Output("Current Time: "+ currT.Ticks, true);
-                 // logger.Output("Class Time: " + clasTime.Ticks, true);
-                if (currT.Ticks >= classpreT.Ticks)
+                DateTime classEnd = DateTime.Parse(todayC.classEnd);
+                if (currT.Ticks >= classpreT.Ticks && currT.Ticks < clasTime.Ticks)
                 {
-                    return "Starting Soon" + classpreT.ToString();
+                  //  logger.Output("Starting preperations for Class " + todayC.className, true);
                 }
-                if (currT.Ticks >= clasTime.Ticks && currT.Ticks < clasTime.Ticks)
-                {
-                    return "In Progress";
-                }
-                if (currT.Ticks > clasTime.Ticks)
-                {
-                    return "Class Completed";
-                }
-                if  (currT.Ticks < clasTime.Ticks)
-                    {
-                        return "Up Soon";
-                    }
+
+           
             }
-            return "Unknown";
+            return "WIP";
+        }
+        public bool CurrentStatus()
+        {
+            Class currentClass = CurrentClass();
+            if (currentClass.className == "No Class")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+             
         }
     }
 }

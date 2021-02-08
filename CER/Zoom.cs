@@ -9,7 +9,7 @@ namespace CER
     class Zoom
     {
         
-        public string zoomPath = @"C:\Users\dusti\AppData\Roaming\Zoom\bin\Zoom.exe";
+        public string zoomPath = @"C:\Users\dusti_721ro61\AppData\Roaming\Zoom\bin\Zoom.exe";
         /// <summary>
         /// Starts the Zoom Application
         /// </summary>

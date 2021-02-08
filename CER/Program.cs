@@ -112,17 +112,58 @@ namespace CER
                     // Run 
                     
                     List<Class> todaysClass = cm.GetTodaysClass();
+
                     Log.Output("**************************************", false);
                     Log.Output("***   CLASS ENVIROMENT RECORDER    ***", false);
                     Log.Output("**************************************", false);
-                    Log.Output("*****       STATUS: RUNNING      *****", false);
-                    Log.Output("**************************************", false);
+                   
+                    if (cH.CurrentClass().className == "No Class" && cH.PreInitCheck().className == "No Class")
+                    {
+                        Console.Write("*****");
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.BackgroundColor = ConsoleColor.Yellow;
+                        Console.Write("       STATUS: WAITING      ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.WriteLine("*****");
+                    }
+                    else if (cH.PreInitCheck().className != "No Class")
+                    {
+                        Console.Write("*****");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.DarkYellow;
+                        Console.Write("       STATUS: PREINIT      ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.WriteLine("*****");
+                    }
+                    else if (cH.CurrentStatus() == true)
+                    {
+                        Console.Write("*****");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.Green;
+                        Console.Write("       STATUS: RUNNING      ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.WriteLine("*****");
+                    }
+                        Log.Output("**************************************", false);
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine();
-                    string time = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt");
+                    string time = DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt");
                     Log.Output("********************************************", false);
-                    Log.Output("Current Time: " + time + " ***", false);
+                    Console.Write("Current Time: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(time, Console.ForegroundColor);
+                    Console.ForegroundColor = ConsoleColor.White;
                     Log.Output("********************************************", false);
-                    Log.Output("Current Class: " + currentClass.className, false);
+                    
+                    Console.Write("Current Class: ");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    
+                    Console.WriteLine(currentClass.className);
+                    Console.ForegroundColor = ConsoleColor.White;
                     Log.Output("********************************************", false);
                     Log.Output(prompt + prompt2 , false);
                     Log.Output("********************************************", false);
@@ -153,7 +194,12 @@ namespace CER
             Log.Output("**************************************", false);
             Log.Output("***   CLASS ENVIROMENT RECORDER    ***", false);
             Log.Output("**************************************", false);
-            Log.Output("*****       STATUS: STOPPED      *****", false);
+            Console.Write("*****");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.Write("       STATUS: STOPPED      ");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine("*****");
             Log.Output("**************************************", false);
         }
     }
